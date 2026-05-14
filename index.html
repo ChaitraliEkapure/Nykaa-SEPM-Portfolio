@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEPM Portfolio | Nykaa Theme</title>
+   
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+    <style>
+        /* --- VARIABLES --- */
+        :root {
+            --primary: #fc2779; /* Nykaa Pink */
+            --primary-hover: #e01b65;
+            --primary-light: #ffe4e1;
+            --bg-color: #FAFAFA;
+            --card-bg: #FFFFFF;
+            --text-main: #222222;
+            --text-muted: #666666;
+            --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 15px 40px rgba(252, 39, 121, 0.15);
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --transition: all 0.3s ease;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Poppins', sans-serif;
+        }
+
+
+        /* --- GLOBAL --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        section {
+            padding: 100px 5%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+
+        /* --- SCROLL PROGRESS --- */
+        #progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1001;
+        }
+
+
+        #progress-bar {
+            height: 4px;
+            background: var(--primary);
+            width: 0%;
+        }
+
+
+        /* --- NAVBAR --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            transition: var(--transition);
+        }
+
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+
+        .nav-links li a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: var(--transition);
+            backdrop-filter: blur(12px);
+        }
+
+
+        .nav-links li a:hover::after,
+        .nav-links li a.active::after {
+            width: 100%;
+        }
+
+
+        .nav-links li a:hover,
+        .nav-links li a.active {
+            color: var(--primary);
+        }
+
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-main);
+        }
+
+
+        /* --- CARDS & LAYOUTS --- */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 1px solid rgba(243, 69, 171, 0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .card:hover {
+            transform: translateY(-8px);
+            /* box-shadow: var(--shadow-hover); */
+            border-color: #e01b65;
+            box-shadow: inset 0 0 10px rgba(228, 19, 99, 0.3);
+        }
+
+
+        /* --- HOME SECTION --- */
+        #home {
+            padding-top: 120px;
+        }
+
+
+        .profile-card {
+            text-align: center;
+            border-top: 4px solid var(--primary);
+        }
+
+
+        .profile-card h2 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+
+        .profile-card .subtitle {
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+
+        /* --- SDLC & IMAGES --- */
+        .image-card {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            cursor: pointer;
+            /* box-shadow: var(--shadow-sm); */
+            transition: var(--transition);
+            position: relative;
+            border-color: #e01b65;
+            box-shadow: inset 0 0 10px rgba(228, 19, 99, 0.3);
+            border: 1px solid rgba(243, 69, 171, 0.02);
+        }
+
+
+        .image-card::after {
+            content: '\f00e';
+            font-family: 'FontAwesome';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: white;
+            opacity: 0;
+            transition: var(--transition);
+            pointer-events: none;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+
+        .image-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: scale(1.02);
+        }
+
+
+        .image-card:hover::after {
+            opacity: 1;
+        }
+
+
+        .image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            aspect-ratio: 16/9;
+            display: block;
+            transition: var(--transition);
+        }
+
+
+        .image-card:hover img {
+            filter: brightness(0.8);
+        }
+
+
+        /* --- PDF PRODUCT CARDS --- */
+        .pdf-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+
+        .pdf-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+
+        .btn-nykaa {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: white !important;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+
+        .btn-nykaa:hover {
+            background-color: var(--primary-hover);
+            box-shadow: 0 5px 15px rgba(252, 39, 121, 0.3);
+            transform: translateY(-2px);
+        }
+
+
+        /* --- UML SECTION --- */
+        .uml-block {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+       
+        .uml-block h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+
+
+        .diagram-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+
+        /* --- LIGHTBOX MODAL --- */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: var(--radius-md);
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+
+        .lightbox.active img {
+            transform: scale(1);
+        }
+
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+
+        .lightbox-close:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+
+
+        /* --- ANIMATIONS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* Back to top */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            z-index: 999;
+            border: none;
+        }
+
+
+        #back-to-top.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+
+        #back-to-top:hover {
+            background: var(--primary-hover);
+            transform: translateY(-5px);
+        }
+
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 992px) {
+            .diagram-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                text-align: center;
+                padding: 2rem 0;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+                transition: 0.4s ease;
+                gap: 1.5rem;
+            }
+
+
+            .nav-links.active {
+                right: 0;
+            }
+
+
+            section {
+                padding: 80px 5%;
+            }
+
+
+            .section-title {
+                font-size: 2rem;
+            }
+           
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+    <div id="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+
+
+    <nav>
+                <div class="logo"><img src="https://play-lh.googleusercontent.com/Jm1GuT2ILrz8yy7vSvJ7GLTgISaeMCj2iOZcuo-J_EMky2ezamVv8shCnHjaBT9o3KI" alt="" height="25px" width="25px"> NYKAA<span style="color:var(--text-main)"> SEPM</span></div>
+
+
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#requirements">Requirement Analysis</a></li>
+            <li><a href="#scheduling">Scheduling</a></li>
+            <li><a href="#uml">UML Diagrams</a></li>
+            <li><a href="#testing">Testing</a></li>
+        </ul>
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+
+    <section id="home">
+        <div class="grid-2 reveal">
+            <div class="card profile-card">
+                <h2>Chaitrali Ekapure</h2>
+                <h3>24010055</h3>
+                <div class="subtitle">Software Engineering Process & Management</div>
+                <p><strong>Project:</strong> Nykaa Application Development Lifecycle</p>
+                <hr style="border:0; border-top:1px solid #eee; margin: 15px 0;">
+                <p>A comprehensive academic showcase analyzing the lifecycle of a high-end beauty and cosmetics e-commerce platform. Exploring methodologies from requirements gathering to system deployment.</p>
+            </div>
+           
+            <div class="grid-2" style="gap: 1rem;">
+                <div class="card" style="padding: 1.5rem;">
+                    <div class="icon-box"><i class="fas fa-laptop-code"></i></div>
+                    <h3>What is Software Engineering?</h3>
+                    <p style="font-size: 0.85rem; margin-top: 10px;">Software Engineering is the systematic process of designing, developing, testing, and maintaining software using techniques like requirements analysis, design, testing, and maintenance.
+It ensures software is high-quality, reliable, and maintainable, especially for large software systems.
+Software Engineering improves efficiency, quality, and budget management, helping deliver software on time, within budget, and meeting all requirements
+It continuously adopting new tools and methodologies to handle complexity and evolving technologies.
+</p>
+ </div>
+                <div class="card" style="padding: 1.5rem;">
+                    <div class="icon-box"><i class="fas fa-chart-line"></i></div>
+                    <h3>Key Principles</h3>
+                    <p style="font-size: 0.85rem; margin-top: 10px;"><ul> <li> Modularity</li>
+<li>Abstraction</li>
+<li>Reusability</li>
+<li>Maintenance</li>
+<li>Testing</li>
+<li>Design Patterns</li>
+<li>Agile Methodologies</li>
+</ul>
+</p>
+                </div>
+            </div>
+        </div>
+               
+
+
+        <div class="card reveal" style="margin-top: 2rem;">
+            <h3>Software Development Life Cycle (SDLC)</h3>
+            <p>The SDLC outlines the process used by software industries to design, develop, and test high-quality software. For the Nykaa application, an Agile methodology was simulated to adapt to changing market requirements in the beauty industry.</p>
+          <h4>Stages of the Software Development Life Cycle:</h4>
+    <ul> <li> Stage 1: Planning & Feasibility Analysis</li>
+<li>Stage 2: Requirement Specification (SRS)</li>
+<li>Stage 3: System Design</li>
+<li>Stage 4: Development (Coding)</li>
+<li>Stage 5: Testing</li>
+<li>Stage 6: Deployment</li>
+</ul>  
+            <div class="image-card" style="margin-top: 1.5rem;">
+                <img src="https://storage.ghost.io/c/e2/c8/e2c8c380-908a-4cb3-bbde-7d4cd9649d5f/content/images/2019/08/image-23.png" alt="SDLC Diagram" class="lightbox-trigger">
+            </div>
+        </div>
+    </section>
+
+
+    <section id="requirements" style="background-color: white;">
+        <h2 class="section-title reveal">Requirement Analysis</h2>
+       
+        <div class="card reveal" style="margin-bottom: 2rem;">
+            <h3>Defining the Scope</h3>
+            <p>Requirement analysis is the process of defining user expectations for a new or modified product. For an e-commerce platform like Nykaa, this involves understanding both the customer's journey (browsing, cart, checkout) and the vendor's administrative needs.</p>
+        </div>
+
+
+        <div class="grid-2 reveal" style="margin-bottom: 2rem;">
+            <div class="card">
+                <div class="icon-box"><i class="fas fa-cogs"></i></div>
+                <h3>Functional Requirements</h3>
+                <ul style="color: var(--text-muted); font-size: 0.95rem; margin-left: 20px; margin-top: 10px;">
+                    <li>User registration and authentication (Email, OTP).</li>
+                    <li>Product catalog browsing with advanced filters.</li>
+                    <li>Shopping cart management and secure checkout.</li>
+                    <li>Order tracking and purchase history.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="icon-box"><i class="fas fa-tachometer-alt"></i></div>
+                <h3>Non-Functional Requirements</h3>
+                <ul style="color: var(--text-muted); font-size: 0.95rem; margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Performance:</strong> Page load under 2 seconds.</li>
+                    <li><strong>Scalability:</strong> Handle 10,000+ concurrent users during sales.</li>
+                    <li><strong>Security:</strong> PCI-DSS compliance for payments.</li>
+                    <li><strong>Usability:</strong> Intuitive mobile-first design.</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="grid-2 reveal">
+            <div class="card pdf-card">
+                <i class="fas fa-file-pdf pdf-icon"></i>
+                <h3>Requirements Document</h3>
+                <p>Complete list of gathered system requirements.</p>
+                <a href="SEPM p1 FR,NFR.pdf" target="_blank" class="btn-nykaa">View Document</a>
+            </div>
+            <div class="card pdf-card">
+                <i class="fas fa-file-alt pdf-icon"></i>
+                <h3>SRS Document</h3>
+                <p>Software Requirement Specification (SRS) Format as the name suggests, is a complete specification and description of requirements of the software that need to be fulfilled for the successful development of the software system. These requirements can be functional as well as non-functional depending upon the type of requirement. The interaction between different customers and contractors is done because it is necessary to fully understand the needs of customers.</p>
+                <a href="SEPM p4 SRS.pdf" target="_blank" class="btn-nykaa">View Document</a>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="scheduling">
+        <h2 class="section-title reveal">Project Scheduling</h2>
+       
+        <div class="grid-2 reveal">
+            <div class="card">
+                <div class="icon-box"><i class="fas fa-stream"></i></div>
+                <h3>Gantt Chart Planning</h3>
+                <p>A Gantt chart was utilized to map out the development lifecycle of the Nykaa platform. It visually represents the timeline of various phases including UI/UX design, database setup, API integration, and testing, ensuring the project stays on deadline.</p>
+                <div class="image-card" style="margin-top: 1rem; margin-bottom: 1.5rem;">
+                    <img src="Gantt chart preview.png" alt="Gantt Chart Preview" class="lightbox-trigger">
+                </div>
+                <a href="SEPM p3 GANNT CHART.pdf" target="_blank" class="btn-nykaa">Download Gantt Chart PDF</a>
+            </div>
+
+
+            <div class="card">
+                <div class="icon-box"><i class="fab fa-jira"></i></div>
+                <h3>Agile Management via Jira</h3>
+                <p>Jira was selected as the primary project management tool. The platform's development was broken down into Epics (e.g., "User Authentication", "Checkout Flow") and further into actionable User Stories and Tasks across 2-week Sprints.</p>
+                <div class="card pdf-card" style="box-shadow: none; border: 1px solid #eee; margin-top: 1rem;">
+                    <i class="fas fa-file-pdf pdf-icon" style="font-size: 2rem;"></i>
+                    <h4 style="margin-bottom: 10px;">Jira Workflow Report</h4>
+                    <a href="SEPM p2 JIRA.pdf" target="_blank" class="btn-nykaa" style="padding: 8px 15px;">View Report</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="uml" style="background-color: white;">
+        <h2 class="section-title reveal">UML / Diagrams</h2>
+        <p class="reveal" style="text-align: center; max-width: 800px; margin: 0 auto 3rem auto;">Unified Modeling Language (UML) diagrams help visualize the architecture, design, and implementation of complex software systems. Below are the static and dynamic models for the application.</p>
+       
+        <h3 class="reveal" style="font-size: 2rem; color: var(--primary); margin-bottom: 1.5rem;">Static Diagrams</h3>
+       
+        <div class="uml-block reveal">
+            <h3>1. Use Case Diagram</h3>
+            <p>A Use Case Diagram is a visual way to show how users (actors) interact with a system and what functions (use cases) the system provides. It helps understand the system’s behavior from the user’s perspective.</p>
+             <ul> <li> Represents actors (users or external systems) and use cases (system functionalities).</li>
+<li>Shows the relationships between users and system features.</li>
+<li>Helps define system scope, requirements, and interactions clearly.</li>
+</ul>
+
+
+            <div class="diagram-grid">
+                <div class="image-card"><img src="Use case notations.png" alt="Use Case 1" class="lightbox-trigger"></div>
+                <div class="image-card"><img src="Use case diagram.png" alt="Use Case 2" class="lightbox-trigger"></div>
+            </div>
+        </div>
+
+
+        <div class="uml-block reveal">
+            <h3>2. Activity Diagram</h3>
+            <p>Activity diagrams show the steps involved in how a system works, helping us understand the flow of control. They display the order in which activities happen and whether they occur one after the other (sequential) or at the same time (concurrent).</p>
+             <ul> <li> An activity diagram starts from an initial point and ends at a final point, showing different decision paths along the way.</li>
+<li>They are often used in business and process modeling to show how a system behaves over time.</li>
+</ul>
+
+
+            <div class="diagram-grid">
+                <div class="image-card"><img src="Activity notations.png" alt="Activity 1" class="lightbox-trigger"></div>
+                <div class="image-card"><img src="Activity diagram.png" alt="Activity 2" class="lightbox-trigger"></div>
+            </div>
+        </div>
+
+
+        <h3 class="reveal" style="font-size: 2rem; color: var(--primary); margin: 3rem 0 1.5rem 0;">Dynamic Diagrams</h3>
+
+
+        <div class="uml-block reveal">
+            <h3>1. Class Diagram</h3>
+            <p>A UML class diagram shows the structure of a system by displaying its classes, their attributes, methods, and the relationships between them. It helps the team understand how the system is organized and how components interact.</p>
+            <ul> <li> Represents classes, attributes, methods, and relationships.</li>
+<li>Helps communicate and document the software structure.</li>
+<li>Makes it easier for developers and designers to understand the system.</li>
+</ul>
+
+
+            <div class="diagram-grid">
+                <div class="image-card"><img src="Class notations.png" alt="Class 1" class="lightbox-trigger"></div>
+                <div class="image-card"><img src="Class Diagram.png" alt="Class 2" class="lightbox-trigger"></div>
+            </div>
+        </div>
+
+
+        <div class="uml-block reveal">
+            <h3>2. Component Diagram</h3>
+            <p> Component diagram shows how the components of a system are arranged and relate to one another. They are widely used in system design to promote modularity, enhance understanding of system architecture.</p>
+            <ul> <li> System components are modular units that offer a set of interfaces and encapsulate implementation.</li>
+<li>These diagrams illustrate how components are wired together to form larger systems, detailing their dependencies and interactions.</li>
+</ul>
+
+
+            <div class="diagram-grid">
+                <div class="image-card"><img src="Component notations.png" alt="Component 1" class="lightbox-trigger"></div>
+                <div class="image-card"><img src="Component diagram.png" alt="Component 2" class="lightbox-trigger"></div>
+            </div>
+        </div>
+
+
+        <div class="uml-block reveal">
+            <h3>3. Deployment Diagram</h3>
+            <p> A Deployment Diagram shows how the software design turns into the actual physical system where the software will run. They show where software components are placed on hardware devices and shows how they connect with each other. This diagram helps visualize how the software will operate across different devices.</p>
+           
+            <div class="diagram-grid">
+                <div class="image-card"><img src="Deployment notations.png" alt="Deployment 1" class="lightbox-trigger"></div>
+                <div class="image-card"><img src="Deployment diagram.png" alt="Deployment 2" class="lightbox-trigger"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="testing">
+        <h2 class="section-title reveal">Testing</h2>
+       
+        <div class="grid-2 reveal">
+            <div class="card">
+                <div class="icon-box"><i class="fas fa-vial"></i></div>
+                <h3>Test Case Analysis</h3>
+                <p>Software testing ensures the application meets all requirements and functions perfectly under various conditions. For an e-commerce platform, rigor in testing is crucial to prevent revenue loss and protect user data.</p>
+                <p><strong>Testing Strategies Implemented:</strong></p>
+                <ul style="color: var(--text-muted); font-size: 0.95rem; margin-left: 20px;">
+                    <li>Unit Testing (Individual module validation)</li>
+                    <li>Integration Testing (API to DB communication)</li>
+                    <li>System Testing (End-to-end user flow)</li>
+                    <li>Stress Testing (High traffic simulation)</li>
+                </ul>
+            </div>
+
+
+            <div class="card pdf-card" style="justify-content: center;">
+                <i class="fas fa-clipboard-check pdf-icon" style="font-size: 4rem;"></i>
+                <h3 style="margin: 1rem 0;">Test Case Documentation</h3>
+                <p>A comprehensive log of all positive and negative test cases, expected outcomes, and actual results.</p>
+                <a href="SEPM p7 Test case.png" target="_blank" class="btn-nykaa" style="width: 80%; margin-top: 2rem;">View Test Cases PDF</a>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <img src="" alt="Expanded View" id="lightbox-img">
+    </div>
+
+
+    <button id="back-to-top"><i class="fas fa-arrow-up"></i></button>
+
+
+    <script>
+        // --- MOBILE MENU TOGGLE ---
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+       
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('.nav-links li a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+
+        // --- SCROLL PROGRESS BAR ---
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+           
+            // Back to top button logic
+            const backToTop = document.getElementById("back-to-top");
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        };
+
+
+        // --- BACK TO TOP ACTION ---
+        document.getElementById('back-to-top').addEventListener('click', () => {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+
+
+        // --- ACTIVE NAV LINK HIGHLIGHTING ---
+        const sections = document.querySelectorAll("section");
+        const navItems = document.querySelectorAll(".nav-links li a");
+
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.3
+        };
+
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    let currentId = entry.target.getAttribute('id');
+                    navItems.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${currentId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+
+        // --- SCROLL ANIMATIONS (REVEAL) ---
+        const reveals = document.querySelectorAll(".reveal");
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+
+        reveals.forEach(reveal => {
+            revealObserver.observe(reveal);
+        });
+
+
+        // --- LIGHTBOX FUNCTIONALITY ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const triggers = document.querySelectorAll('.lightbox-trigger');
+        const closeBtn = document.getElementById('lightbox-close');
+
+
+        triggers.forEach(trigger => {
+            trigger.addEventListener('click', function() {
+                lightboxImg.src = this.src;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            });
+        });
+
+
+        closeBtn.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if(e.target === lightbox) closeLightbox();
+        });
+
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>
